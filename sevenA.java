@@ -23,6 +23,7 @@ public class sevenA{
 			else{
 				c=q;bt[i]-=q;
 			}
+			System.out.print((total-t)+"|");
 			t-=c;
 			System.out.println("P"+i+"|"+(total-t)+"|");
 		}
