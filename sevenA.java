@@ -1,31 +1,41 @@
-import java.util.Scanner;
-public class sevenA{
+import java.util.*;
+public class nineA{
 	public static void main(String[] args){
-		int n,q,t=0,total;
+		int n,m,i,j,hit=0,k=0,l=0;
 		Scanner sc=new Scanner(System.in);
-		System.out.println("Enter the no of processes");
+		System.out.println("Enter the number of inputs");
 		n=sc.nextInt();
-		int[] bt=new int[n];
-		for(int i=0;i<n;i++){
-			System.out.println("Enter burst time for process "+i);
-			bt[i]=sc.nextInt();
-			t+=bt[i];		
+		int[] a=new int[n];
+		for(i=0;i<n;i++){
+			System.out.print("a["+i+"] : ");
+			a[i]=sc.nextInt();
+			System.out.println();
 		}
-		total=t;
-		System.out.println("Enter the time quanta");
-		q=sc.nextInt();
-		for(int i=0,c=0;t>0;i=(i+1)%n){
-			if(bt[i]==0)
-				continue;
-			else if(bt[i]<q){
-				c=bt[i];bt[i]=0;	
+		System.out.println("Enter the frame size");
+		m=sc.nextInt();
+		int[][] frame=new int[m][2];
+		for(i=0;i<m;i++){
+			frame[i][0]=-1;
+			frame[i][1]=-1;
+		}
+		System.out.println("============================");
+		for(i=0;i<n;i++){
+			for(j=0,l=0;j<m&&a[i]!=frame[j][0];j++)
+				if(frame[l][1]>frame[j][1])
+					l=j;
+			if(j==m){
+				frame[l][0]=a[i];
+				frame[l][1]=i;
+				System.out.println(frame[0][0]+"("+frame[0][1]+")"+" \t "+frame[1][0]+"("+frame[1][1]+")"+" \t "+frame[2][0]+"("+frame[2][1]+")");
 			}
 			else{
-				c=q;bt[i]-=q;
+				hit++;
+				frame[j][1]=i;
+				System.out.println(frame[0][0]+"("+frame[0][1]+")"+" \t "+frame[1][0]+"("+frame[1][1]+")"+" \t "+frame[2][0]+"("+frame[2][1]+")"+" \t Hit");
 			}
-			System.out.print((total-t)+"|");
-			t-=c;
-			System.out.println("P"+i+"|"+(total-t)+"|");
+			System.out.println("============================");
 		}
+		System.out.println("Hits : "+hit+", Faults : "+(n-hit));
+		sc.close();
 	}
 }
